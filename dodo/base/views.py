@@ -5,4 +5,5 @@ from django.http import HttpResponse
 
 
 def say_hello(request):
-    return HttpResponse("Helllo!")
+    context = {"first_name": "Rylan en Semih"}
+    return render(request, "base/hello.html", context)
