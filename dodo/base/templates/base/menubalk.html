@@ -9,29 +9,30 @@
 </div>
 
  {% endcomment %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menubalk</title>
-    <link rel="stylesheet" href="base/css/menu.css">
-</head>
-
-<body>
-    <div class="nav-container">
-        <p><img src="{% static "base/img/kat.jpg" %}" alt="DODO"></p>
-        <a href="startpagina" class="nav-item">Pagina 1</a>
-        <a href="pagina_twee" class="nav-item">Pagina 2</a>
-        <a href="login" class="nav-item">login</a>
-        <a href="register" class="nav-item">register</a>
-    </div>
-</body>
-
-</html> 
+ {% load static %}
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Menubalk</title>
+     <link rel="stylesheet" href="{% static 'base/css/menu.css' %}">
+ </head>
+ 
+ <body>
+     <div class="nav-container">
+         <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
+         <a href="/startpagina" class="nav-item">Pagina 1</a>
+         <a href="/pagina_twee" class="nav-item">Pagina 2</a>
+         <a href="/login" class="nav-item">login</a>
+         <a href="/register" class="nav-item">register</a>
+     </div>
+ </body>
+ 
+ </html>
+ 
 
 {% comment %} <!DOCTYPE html>
 <html lang="en">

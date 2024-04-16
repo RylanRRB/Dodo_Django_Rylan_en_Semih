@@ -1,11 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
+
+def startpagina(request):
+    return render(request, "base/startpagina.html")
 
 def register(request):
     if request.method == "POST":
@@ -13,7 +15,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("base/startpagina.html")
+            return redirect('start_pagina')
     else:
         form = UserCreationForm()
     
