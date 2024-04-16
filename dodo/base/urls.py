@@ -11,5 +11,6 @@ urlpatterns = [
     path("pagina_twee/", views.say_lastname, name = "pagina_twee"),
     path("user_info/", views.user_info, name = "user_info"),
     path("user_list/", views.user_list, name="user_list"),
-    path("add_dodo/", views.add_dodo, name="add_dodo")
+    path("add_dodo/", views.add_dodo, name="add_dodo"),
+    path("dodo_goedkeuring/", views.dodo_goedkeuring, name="dodo_goedkeuring")
 ]

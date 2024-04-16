@@ -22,23 +22,24 @@
  </head>
  
  <body>
-     <div class="nav-container">
-         <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
-         <a href="/startpagina" class="nav-item">Feeds</a>
-         <a href="/user_info" class="nav-item">Edit profile</a>
-         <a href="/user_info" class="nav-item">Update Dodo</a>
-         <a href="/user_list" class="nav-item">Users</a>
-         <a href="/add_dodo" class="nav-item">Add dodo</a>
-         <div class="nav-auth">
-            {% if user.is_authenticated %}
-                <span>{{ user.username }}</span>
-                <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
-            {% else %}
-                <a href="/login" class="nav-item">login</a>
-                <a href="/register" class="nav-item">register</a>
+    <div class="nav-container">
+        <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
+        <a href="/startpagina" class="nav-item">Feeds</a>
+        <a href="/user_info" class="nav-item">Edit profile</a>
+        <a href="/user_info" class="nav-item">Update Dodo</a>
+        <a href="/user_list" class="nav-item">Users</a>
+        <a href="/add_dodo" class="nav-item">Add dodo</a>
+        {% if user.is_authenticated %}
+            <span>{{ user.username }}</span>
+            <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
+            {% if user.is_staff %}
+                <a href="{% url 'dodo_goedkeuring' %}" class="nav-item">Dodo Goedkeuring</a>
             {% endif %}
-         </div>
-     </div>
+        {% else %}
+            <a href="/login" class="nav-item">Login</a>
+            <a href="/register" class="nav-item">Register</a>
+        {% endif %}
+    </div>
  </body>
  
  </html>

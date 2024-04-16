@@ -70,3 +70,9 @@ def add_dodo(request):
 
     context = {"form": form}
     return render(request, "base/add_dodo.html", context)
+
+@staff_member_required
+def dodo_goedkeuring(request):
+    context = {"last_name": "Baboelal en Sener"}
+    return render(request, "base/dodo_goedkeuring.html", context)
+
