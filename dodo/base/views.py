@@ -55,9 +55,9 @@ def user_list(request):
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
 
-@login_required
+@login_required #auth (fix)
 def add_dodo(request):
-    dodo_instance, created = Dodo.objects.get_or_create(user=request.name)
+    dodo_instance, created = Dodo.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
         form = DodoForm(request.POST, instance=dodo_instance)
