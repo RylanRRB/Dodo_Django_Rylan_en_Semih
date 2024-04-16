@@ -7,17 +7,32 @@ from django.core.validators import MinValueValidator, MaxLengthValidator
 
 
 class Profile(models.Model):
-    location = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    grade = models.CharField(max_length=50, default='')
+    city = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     bio = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
-    
-class Distance(models.Model):    
-    length = models.CharField(max_length=30, blank=True)    
-    full_name = models.CharField(max_length=30, blank=True)    
+
+class Dodo(models.Model):
+    name = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    alive = models.BooleanField(default=True)
+    dead_approved = models.BooleanField(default=False)
+    dead_approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='approved_dodos', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Update(models.Model):
+    dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    description = models.TextField()
+
 
     def __str__(self):
         return self.length          
@@ -43,4 +58,3 @@ class Time(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-

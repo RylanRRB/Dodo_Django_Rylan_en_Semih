@@ -1,25 +1,58 @@
-{% load static %}
+{% comment %} {% load static %}
+
 <div class="nav-container">
-    <p><img src="{% static "base/img/cat1.png" %}" alt="Dodo"></p>
-    {% if user.is_authenticated %}
-        <a href="{% url 'hello' %}" class="nav-item" style="color: black; font-style: normal;">Home</a>
-        <a href="{% url 'medalwinners' %}" class="nav-item" style="color: black; font-style: normal;">All winners</a>
-        <a href="{% url 'medal' 'Gold' %}" class="nav-item" style="color: black; font-style: normal;">Gold winner</a>
-        <a href="{% url 'medal' 'Silver' %}" class="nav-item" style="color: black; font-style: normal;">Silver winner</a>
-        <a href="{% url 'medal' 'Bronze' %}" class="nav-item" style="color: black; font-style: normal;">Bronze winner</a>
-        <a href="{% url 'distance15KM' %}" class="nav-item" style="color: black; font-style: normal;">15KM Distances</a>
-        <a href="{% url 'distance30KM' %}" class="nav-item" style="color: black; font-style: normal;">30KM Distances</a>
-        <a href="{% url 'newtime' %}" class="nav-item"> New Time</a>
-        {% if user.is_staff %}
-            <a href="{% url 'unapproved_times' %}" class="nav-item">Approve times</a>
-        {% endif %}
-        <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
-    {% else %}
-        <a href="{% url 'login' %}" class="nav-item">Login</a>
-        <a href="{% url 'register' %}" class="nav-item">Register</a>
-    {% endif %}
-
-
-
-
+    <p><img src="{% static "base/img/kat.jpg" %}" alt="Langlaufvereniging De lange lat"></p>
+        <a href="{% url 'startpagina' %}" class="nav-item" style="color: black; font-style: normal;">startpagina</a>
+        <a href="{% url 'pagina_twee' %}" class="nav-item" style="color: black; font-style: normal;">pagina_twee</a>
+        <a href="{% url 'login' %}" class="nav-item" style="color: black; font-style: normal;">login</a>
+        <a href="{% url 'register' %}" class="nav-item" style="color: black; font-style: normal;">register</a>
 </div>
+
+ {% endcomment %}
+ {% load static %}
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Menubalk</title>
+     <link rel="stylesheet" href="{% static 'base/css/menu.css' %}">
+ </head>
+ 
+ <body>
+     <div class="nav-container">
+         <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
+         <a href="/startpagina" class="nav-item">Pagina 1</a>
+         <a href="/pagina_twee" class="nav-item">Pagina 2</a>
+         <a href="/login" class="nav-item">login</a>
+         <a href="/register" class="nav-item">register</a>
+     </div>
+ </body>
+ 
+ </html>
+ 
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menubalk</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+
+<body>
+    <div class="nav-container">
+        <p><img src="img/kat.jpg"></p>
+        <a href="startpagina" class="nav-item">Pagina 1</a>
+        <a href="pagina_twee" class="nav-item">Pagina 2</a>
+        <a href="login" class="nav-item">login</a>
+        <a href="register" class="nav-item">register</a>
+    </div>
+</body>
+
+</html> {% endcomment %}
