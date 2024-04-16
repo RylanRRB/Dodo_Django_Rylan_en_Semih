@@ -25,7 +25,7 @@ class Dodo(models.Model):
     def __str__(self):
         return self.name
 
-class UpdateDodo(models.Model):
+class Update(models.Model):
     dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
