@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>User information</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Grade</th>
+            <th>City</th>
+            <th>Date of Birth</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user.username }}</td>
+            <td>{{ user.grade }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.date_of_birth }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

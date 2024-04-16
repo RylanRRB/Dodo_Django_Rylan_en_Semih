@@ -24,10 +24,18 @@
  <body>
      <div class="nav-container">
          <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
-         <a href="/startpagina" class="nav-item">Pagina 1</a>
-         <a href="/pagina_twee" class="nav-item">Pagina 2</a>
-         <a href="/login" class="nav-item">login</a>
-         <a href="/register" class="nav-item">register</a>
+         <a href="/startpagina" class="nav-item">Feeds</a>
+         <a href="/user_info" class="nav-item">Edit profile</a>
+         <a href="/user_list" class="nav-item">Users</a>
+         <div class="nav-auth">
+            {% if user.is_authenticated %}
+                <span>{{ user.username }}</span>
+                <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
+            {% else %}
+                <a href="/login" class="nav-item">login</a>
+                <a href="/register" class="nav-item">register</a>
+            {% endif %}
+         </div>
      </div>
  </body>
  
