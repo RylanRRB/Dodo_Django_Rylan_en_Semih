@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm
-from .forms import UserForm
+from .forms import UserForm, DodoForm
 from django.contrib import messages
 from .models import *
 # Create your views here.
@@ -51,3 +51,19 @@ def user_list(request):
     users = Profile.objects.all()
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
+
+@login_required
+def add_dodo(request):
+    dodo_instance, created = Dodo.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        form = DodoForm(request.POST, instance=dodo_instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Dodo Info added successfully")
+            return redirect("add_dodo")
+    else:
+        form = DodoForm(instance=dodo_instance)
+
+    context = {"form": form}
+    return render(request, "base/add_dodo.html", context)
