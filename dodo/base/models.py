@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    grade = models.IntegerField()
+    grade = models.CharField(max_length=50, default='')
     city = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
 
