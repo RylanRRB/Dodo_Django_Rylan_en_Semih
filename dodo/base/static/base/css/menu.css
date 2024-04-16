@@ -31,3 +31,11 @@ a:hover {
     color: darkgreen;
     text-decoration: underline;
 }
+
+.nav_auth{
+    margin-left:auto;
+}
+
+.nav-auth a,.nav-auth{
+    margin: 0 0.5rem
+}

@@ -25,6 +25,9 @@ def register(request):
     context = {"form": form}
     return render(request, "registration/register.html", context)
 
+def logoutview(request):
+    logout(request)
+    return redirect('start_pagina')
 
 def say_firstname(request):
     context = {"first_name": "Rylan en Semih"}
@@ -51,3 +54,4 @@ def user_list(request):
     users = Profile.objects.all()
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
+
