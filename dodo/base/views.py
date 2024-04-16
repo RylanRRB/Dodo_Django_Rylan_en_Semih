@@ -57,7 +57,7 @@ def user_list(request):
 
 @login_required
 def add_dodo(request):
-    dodo_instance, created = Dodo.objects.get_or_create(user=request.user)
+    dodo_instance, created = Dodo.objects.get_or_create(user=request.name)
 
     if request.method == "POST":
         form = DodoForm(request.POST, instance=dodo_instance)

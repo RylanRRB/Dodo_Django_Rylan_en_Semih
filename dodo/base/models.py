@@ -16,14 +16,14 @@ class Profile(models.Model):
         return self.user.username
 
 class Dodo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField()
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_of_birth = models.DateField(null=True, blank=True)
     alive = models.BooleanField(default=True)
     dead_approved = models.BooleanField(default=False)
     dead_approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='approved_dodos', null=True, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.name
 
 class Update(models.Model):
     dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE)
