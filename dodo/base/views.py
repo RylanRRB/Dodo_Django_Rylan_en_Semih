@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserForm
 from django.contrib import messages
+from .models import *
 # Create your views here.
 
 def startpagina(request):
@@ -45,3 +46,8 @@ def user_info(request):
 
     context = {"form": form}
     return render(request, "base/user_info.html", context)
+
+def user_list(request):
+    users = Profile.objects.all()
+    context = {"users": users}
+    return render(request, 'base/user_list.html', context)
