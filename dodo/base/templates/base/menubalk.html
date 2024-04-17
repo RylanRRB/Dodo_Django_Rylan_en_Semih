@@ -9,28 +9,28 @@
 </div>
 
  {% endcomment %}
- {% load static %}
- <!DOCTYPE html>
- <html lang="en">
- 
- <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Menubalk</title>
-     <link rel="stylesheet" href="{% static 'base/css/menu.css' %}">
- </head>
- 
- <body>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menubalk</title>
+    <link rel="stylesheet" href="{% static 'base/css/menu.css' %}">
+</head>
+
+<body>
     <div class="nav-container">
         <p><img src="{% static 'base/img/kat.jpg' %}" alt="DODO"></p>
         <a href="/startpagina" class="nav-item">Home</a>
         <a href="/feed" class="nav-item">Feed</a>
         <a href="/pagina_twee" class="nav-item">Dode Dodo</a>
-        <a href="/user_info" class="nav-item">Edit profile</a>
+        <a href="/user_info" class="nav-item">Edit Profile</a>
         <a href="/update_dodo" class="nav-item">Update Dodo</a>
         <a href="/user_list" class="nav-item">Users</a>
-        <a href="/add_dodo" class="nav-item">Add dodo</a>
+        <a href="/add_dodo" class="nav-item">Add Dodo</a>
         {% if user.is_authenticated %}
             <span>{{ user.username }}</span>
             <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
@@ -42,9 +42,11 @@
             <a href="/register" class="nav-item">Register</a>
         {% endif %}
     </div>
- </body>
- 
- </html>
+</body>
+
+</html>
+
+
  
 
 {% comment %} <!DOCTYPE html>
