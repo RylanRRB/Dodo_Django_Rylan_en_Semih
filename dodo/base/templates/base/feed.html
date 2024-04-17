@@ -1,22 +1,20 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>Feeds</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Updates</th>
-        </tr>
-    </thead>
-    <tbody>
+    <h1>Feeds</h1>
+    <div class="feed-container">
         {% for update in updates %}
-        <tr>
-            <td>{{ update.user }}</td>
-            <td>{{ update.dodo }}</td>
-            <td>{{ update.date }}</td>
-            <td>{{ update.description }}</td>
-        </tr>
+            <div class="update-card">
+                <div class="update-header">
+                    <span class="update-user">{{ update.user }}</span>
+                    <span class="update-date">{{ update.date }}</span>
+                </div>
+                <div class="update-body">
+                    <p>{{ update.description }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No updates available</p>
         {% endfor %}
-    </tbody>
-</table>
+    </div>
 {% endblock content %}

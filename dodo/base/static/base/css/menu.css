@@ -1,3 +1,5 @@
+/* Add this CSS to your existing CSS file */
+
 body {
     margin: 0;
 }
@@ -8,7 +10,6 @@ body {
     align-items: center;
     gap: 2rem;
     padding-left: 1rem;
-
 }
 
 .nav-item {
@@ -32,10 +33,43 @@ a:hover {
     text-decoration: underline;
 }
 
-.nav_auth{
-    margin-left:auto;
+.nav_auth {
+    margin-left: auto;
 }
 
-.nav-auth a,.nav-auth{
-    margin: 0 0.5rem
+.nav-auth a,
+.nav-auth {
+    margin: 0 0.5rem;
+}
+
+/* feed page tories */
+.feed-container {
+    display: grid;
+    gap: 20px;
+}
+
+.update-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.update-user {
+    font-weight: bold;
+}
+
+.update-date {
+    color: #777;
+}
+
+.update-body {
+    font-size: 16px;
 }
