@@ -20,7 +20,7 @@ class Dodo(models.Model):
     dodo = models.CharField(max_length=50, default='')
     description = models.TextField(default='')
     date_of_birth = models.DateField(null=True, blank=True)
-    alive = models.BooleanField(default=None)
+    alive = models.BooleanField(default=True)
     dead_approved = models.BooleanField(default=False)
     dead_approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='approved_dodos', null=True, blank=True)
 
