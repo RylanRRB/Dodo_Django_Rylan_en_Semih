@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import UserForm, DodoForm
 from django.contrib import messages
 from .models import *
+from datetime import datetime
 # Create your views here.
 
 def startpagina(request):
@@ -85,26 +86,47 @@ def dodo_goedkeuring(request):
     if request.method == "POST":
         dodo_id = request.POST.get("dodo_id")
         dodo_instance = Dodo.objects.get(pk=dodo_id)
+
+        update_entry = Update.objects.create(
+            dodo=dodo_instance,
+            user=request.user,
+            date=datetime.now(),
+            description="Dodo approved by admin"
+        )
+
         dodo_instance.dead_approved = True
         dodo_instance.dead_approved_by = request.user
         dodo_instance.save()
+
         messages.success(request, "Dodo approved successfully")
 
     context = {"dodos_pending_approval": dodos_pending_approval}
     return render(request, "base/dodo_goedkeuring.html", context)
 
-
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(user=request.user, alive = True)
+    dodos = Dodo.objects.filter(user=request.user, alive=True)
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
         dodo_instance = Dodo.objects.get(pk=dodo_id)
         form = DodoForm(request.POST, instance=dodo_instance)
         if form.is_valid():
+            # Save the updated Dodo instance
             form.save()
-            messages.success(request, "Dodo Info updated successfully")
+
+            # Get the username of the user who updated the Dodo
+            updated_by = request.user.username
+
+            # Create an update entry for the Dodo update
+            update_entry = Update.objects.create(
+                dodo=dodo_instance,
+                user=request.user,
+                date=datetime.now(),
+                description=f"Dodo updated by {updated_by}"
+            )
+
+            messages.success(request, "Dodo updated successfully")
             if 'admin' in request.META.get('HTTP_REFERER'):
                 return redirect('dodo_goedkeuring')
             else:
@@ -119,6 +141,8 @@ def update_dodo(request):
 
     context = {"form": form, "dodos": dodos}
     return render(request, "base/update_dodo.html", context)
+
+
 
 
 
