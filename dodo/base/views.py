@@ -130,20 +130,15 @@ def update_dodo(request):
         dodo_instance = Dodo.objects.get(pk=dodo_id)
         form = DodoForm(request.POST, instance=dodo_instance)
         if form.is_valid():
-            # Save the updated Dodo instance
             form.save()
-
-            # Get the username of the user who updated the Dodo
             updated_by = request.user.username
-
-            # Create an update entry for the Dodo update
             update_entry = Update.objects.create(
                 dodo=dodo_instance,
                 user=request.user,
                 date=datetime.now(),
                 description=f"Dodo updated by {updated_by}"
             )
-
+            
             messages.success(request, "Dodo updated successfully")
             if 'admin' in request.META.get('HTTP_REFERER'):
                 return redirect('dodo_goedkeuring')

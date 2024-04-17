@@ -25,7 +25,7 @@ class Dodo(models.Model):
     dead_approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='approved_dodos', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.dodo}"
+        return f"{self.dodo} - Added by {self.user.username}"
 
 
 class Update(models.Model):
@@ -33,6 +33,9 @@ class Update(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     description = models.TextField()
+
+    def __str__(self):
+        return f"Update for {self.dodo.dodo} - Added by {self.user.username} on {self.date}"
 
 
 @receiver(post_save, sender=User)
