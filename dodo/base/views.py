@@ -55,9 +55,15 @@ def user_list(request):
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
 
-@login_required #auth (fix)
+@login_required
 def add_dodo(request):
-    dodo_instance, created = Dodo.objects.get_or_create(user=request.user)
+    dodo_instances = Dodo.objects.filter(user=request.user)
+
+    if dodo_instances.exists():
+        dodo_instance = dodo_instances.first()
+    else:
+        # If no Dodo object exists for the user, create a new one
+        dodo_instance = Dodo.objects.create(user=request.user)
 
     if request.method == "POST":
         form = DodoForm(request.POST, instance=dodo_instance)
@@ -71,14 +77,26 @@ def add_dodo(request):
     context = {"form": form}
     return render(request, "base/add_dodo.html", context)
 
+
 @staff_member_required
 def dodo_goedkeuring(request):
-    context = {"last_name": "Baboelal en Sener"}
+    dodos_pending_approval = Dodo.objects.filter(alive=False, dead_approved=False)
+
+    if request.method == "POST":
+        dodo_id = request.POST.get("dodo_id")
+        dodo_instance = Dodo.objects.get(pk=dodo_id)
+        dodo_instance.dead_approved = True
+        dodo_instance.dead_approved_by = request.user
+        dodo_instance.save()
+        messages.success(request, "Dodo approved successfully")
+
+    context = {"dodos_pending_approval": dodos_pending_approval}
     return render(request, "base/dodo_goedkeuring.html", context)
+
 
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(user=request.user)
+    dodos = Dodo.objects.filter(user=request.user, alive = True)
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")

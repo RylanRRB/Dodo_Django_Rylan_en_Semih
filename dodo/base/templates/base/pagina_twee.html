@@ -1,5 +1,14 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1> Dit is onze website2 {{ last_name }}</h1>
+    <h1>Approved Dodos</h1>
+    <ul>
+        {% for dodo in user.approved_dodos.all %}
+            <li>
+                {{ dodo.dodo }} - Alive: {{ dodo.alive }} - Dead Approved: {{ dodo.dead_approved }}<br>
+                Description: {{ dodo.description }}<br>
+                Date of Birth: {{ dodo.date_of_birth }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}

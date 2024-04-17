@@ -1,5 +1,19 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1> Dit is onze website2 {{ last_name }}</h1>
+    <h2>Dodos Pending Approval</h2>
+    <ul>
+        {% for dodo in dodos_pending_approval %}
+            <li>
+                {{ dodo.dodo }} - Alive: {{ dodo.alive }} - Dead Approved: {{ dodo.dead_approved }}<br>
+                Description: {{ dodo.description }}<br>
+                Date of Birth: {{ dodo.date_of_birth }}
+                <form method="POST" action="{% url 'dodo_goedkeuring' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="dodo_id" value="{{ dodo.id }}">
+                    <button type="submit">Approve</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
