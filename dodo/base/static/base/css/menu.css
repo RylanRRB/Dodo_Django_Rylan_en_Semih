@@ -1,6 +1,4 @@
-/* Add this CSS to your existing CSS file */
-
-body {
+.body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
@@ -50,7 +48,7 @@ a:hover {
     margin: 0 0.5rem;
 }
 
-/* feed page tories */
+/* feed page stories */
 .feed-container {
     display: grid;
     gap: 20px;
@@ -131,7 +129,7 @@ a:hover {
 }
 
 
-/* add dodo pagina */
+/* add dodo page */
 .add-dodo-form {
     max-width: 500px;
     margin: 0 auto;
