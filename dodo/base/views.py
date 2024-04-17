@@ -76,25 +76,20 @@ def user_list(request):
 
 @login_required
 def add_dodo(request):
-    dodo_instances = Dodo.objects.filter(user=request.user)
-
-    if dodo_instances.exists():
-        dodo_instance = dodo_instances.first()
-    else:
-        # If no Dodo object exists for the user, create a new one
-        dodo_instance = Dodo.objects.create(user=request.user)
-
     if request.method == "POST":
-        form = DodoForm(request.POST, instance=dodo_instance)
+        form = DodoForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Dodo Info added successfully")
+            dodo = form.save(commit=False)
+            dodo.user = request.user
+            dodo.save()
+            messages.success(request, "Dodo added successfully")
             return redirect("add_dodo")
     else:
-        form = DodoForm(instance=dodo_instance)
-
+        form = DodoForm()
+    
     context = {"form": form}
     return render(request, "base/add_dodo.html", context)
+
 
 
 @staff_member_required
