@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .forms import UserForm, DodoForm
 from django.contrib import messages
 from .models import *
@@ -38,18 +38,36 @@ def say_lastname(request):
     context = {"last_name": "Baboelal en Sener"}
     return render(request, "base/pagina_twee.html", context)
 
+@login_required
 def user_info(request):
     if request.method == "POST":
         form = UserForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            messages.success(request, "User Info added succesfully")
+            messages.success(request, "User Info added successfully")
             return redirect("user_info")
     else:
         form = UserForm()
 
-    context = {"form": form}
+    password_form = PasswordChangeForm(request.user)
+    
+    context = {"form": form, "password_form": password_form}
     return render(request, "base/user_info.html", context)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Import this function
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user_info')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'base/change_password.html', {'form': form})
 
 def user_list(request):
     users = Profile.objects.all()

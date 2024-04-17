@@ -14,5 +14,6 @@ urlpatterns = [
     path("add_dodo/", views.add_dodo, name="add_dodo"),
     path("update_dodo/", views.update_dodo, name= "update_dodo"),
     path("dodo_goedkeuring/", views.dodo_goedkeuring, name="dodo_goedkeuring"),
-    path("feed/", views.feed, name="feed")
+    path("feed/", views.feed, name="feed"),
+    path("change_password/", views.change_password, name="change_password"),
 ]
