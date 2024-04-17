@@ -78,19 +78,19 @@ def dodo_goedkeuring(request):
 
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(user=request.user)  # Retrieve added dodos for the current user
+    dodos = Dodo.objects.filter(user=request.user)
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
-        if dodo_id:
-            dodo_instance = Dodo.objects.get(pk=dodo_id)
-            form = DodoForm(request.POST, instance=dodo_instance)
-        else:
-            form = DodoForm(request.POST)
+        dodo_instance = Dodo.objects.get(pk=dodo_id)
+        form = DodoForm(request.POST, instance=dodo_instance)
         if form.is_valid():
             form.save()
             messages.success(request, "Dodo Info updated successfully")
-            return redirect("start_pagina")
+            if 'admin' in request.META.get('HTTP_REFERER'):
+                return redirect('dodo_goedkeuring')
+            else:
+                return redirect('start_pagina')
     else:
         dodo_id = request.GET.get("dodo")
         if dodo_id:

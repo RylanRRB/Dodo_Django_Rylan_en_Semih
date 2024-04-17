@@ -4,6 +4,7 @@
     <h2>Update Dodo</h2>
     <form method="POST">
         {% csrf_token %}
+        <input type="hidden" name="user" value="{{ request.user.id }}">
         <label for="id_dodo">Select Dodo:</label>
         <select name="dodo" id="id_dodo">
             {% for dodo in dodos %}
