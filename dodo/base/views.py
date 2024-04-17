@@ -38,6 +38,11 @@ def say_lastname(request):
     context = {"last_name": "Baboelal en Sener"}
     return render(request, "base/pagina_twee.html", context)
 
+def pagina_twee(request):
+    approved_dead_dodos = Dodo.objects.filter(alive=False, dead_approved=True)
+    context = {"approved_dead_dodos": approved_dead_dodos}
+    return render(request, "base/pagina_twee.html", context)
+
 @login_required
 def user_info(request):
     if request.method == "POST":
