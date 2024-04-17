@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
 class DodoForm(forms.ModelForm):
     class Meta:
         model = Dodo
-        fields = ("user", "dodo", "date_of_birth", "alive")
+        fields = ("dodo", "user", "date_of_birth", "description", "alive")
         widgets = {
             "date_of_birth": forms.DateInput(attrs={"type": "date"})
         }

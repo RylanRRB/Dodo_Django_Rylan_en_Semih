@@ -18,13 +18,15 @@ class Profile(models.Model):
 class Dodo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dodo = models.CharField(max_length=50, default='')
+    description = models.TextField(default='')
     date_of_birth = models.DateField(null=True, blank=True)
-    alive = models.BooleanField(default= True)
-    dead_approved = models.BooleanField(default= False)
+    alive = models.BooleanField(default=True)
+    dead_approved = models.BooleanField(default=False)
     dead_approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='approved_dodos', null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.dodo}"
+
 
 class Update(models.Model):
     dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE)

@@ -76,3 +76,31 @@ def dodo_goedkeuring(request):
     context = {"last_name": "Baboelal en Sener"}
     return render(request, "base/dodo_goedkeuring.html", context)
 
+@login_required
+def update_dodo(request):
+    dodos = Dodo.objects.filter(user=request.user)  # Retrieve added dodos for the current user
+
+    if request.method == "POST":
+        dodo_id = request.POST.get("dodo")
+        if dodo_id:
+            dodo_instance = Dodo.objects.get(pk=dodo_id)
+            form = DodoForm(request.POST, instance=dodo_instance)
+        else:
+            form = DodoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Dodo Info updated successfully")
+            return redirect("start_pagina")
+    else:
+        dodo_id = request.GET.get("dodo")
+        if dodo_id:
+            dodo_instance = Dodo.objects.get(pk=dodo_id)
+            form = DodoForm(instance=dodo_instance)
+        else:
+            form = DodoForm()
+
+    context = {"form": form, "dodos": dodos}
+    return render(request, "base/update_dodo.html", context)
+
+
+
