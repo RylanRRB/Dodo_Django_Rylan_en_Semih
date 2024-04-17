@@ -1,9 +1,27 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-{% endblock content%}
+    <div class="add-dodo-form">
+        <h2>Add Dodo</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_dodo">Dodo:</label><br>
+                {{ form.dodo }}
+            </div>
+            <div class="form-group">
+                <label for="id_description">Description:</label><br>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <label for="id_date_of_birth">Date of Birth:</label><br>
+                {{ form.date_of_birth }}
+            </div>
+            <div class="form-group">
+                <label for="id_alive">Alive:</label>
+                {{ form.alive }}
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock content %}
