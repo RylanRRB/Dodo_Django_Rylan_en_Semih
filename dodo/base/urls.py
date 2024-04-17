@@ -13,5 +13,6 @@ urlpatterns = [
     path("user_list/", views.user_list, name="user_list"),
     path("add_dodo/", views.add_dodo, name="add_dodo"),
     path("update_dodo/", views.update_dodo, name= "update_dodo"),
-    path("dodo_goedkeuring/", views.dodo_goedkeuring, name="dodo_goedkeuring")
+    path("dodo_goedkeuring/", views.dodo_goedkeuring, name="dodo_goedkeuring"),
+    path("feed/", views.feed, name="feed")
 ]

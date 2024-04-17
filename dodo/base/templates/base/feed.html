@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>Feeds</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Updates</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for update in updates %}
+        <tr>
+            <td>{{ update.user }}</td>
+            <td>{{ update.dodo }}</td>
+            <td>{{ update.date }}</td>
+            <td>{{ update.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

@@ -142,7 +142,8 @@ def update_dodo(request):
     context = {"form": form, "dodos": dodos}
     return render(request, "base/update_dodo.html", context)
 
-
-
-
+def feed(request):
+    updates = Update.objects.all().order_by('-date')
+    context = {"updates": updates}
+    return render(request, 'base/feed.html', context)
 
