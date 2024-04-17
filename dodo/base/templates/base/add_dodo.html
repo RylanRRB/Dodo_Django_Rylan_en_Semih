@@ -1,6 +1,16 @@
 {% extends "base/base.html" %}
 
 {% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content%}
+
+{% comment %} {% extends "base/base.html" %}
+
+{% block content %}
     <div class="add-dodo-form">
         <h2>Add Dodo</h2>
         <form method="POST">
@@ -24,4 +34,7 @@
             <input type="submit" value="Submit" class="btn btn-primary">
         </form>
     </div>
-{% endblock content %}
+{% endblock content %} {% endcomment %}
+
+
+

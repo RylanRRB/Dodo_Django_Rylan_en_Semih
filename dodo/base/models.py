@@ -29,7 +29,7 @@ class Dodo(models.Model):
 
 
 class Update(models.Model):
-    dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE)
+    dodo = models.ForeignKey(Dodo, on_delete=models.CASCADE, related_name='updates')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     description = models.TextField()
