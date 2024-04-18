@@ -138,7 +138,7 @@ def update_dodo(request):
                 date=datetime.now(),
                 description=f"Dodo updated by {updated_by}"
             )
-            
+
             messages.success(request, "Dodo updated successfully")
             if 'admin' in request.META.get('HTTP_REFERER'):
                 return redirect('dodo_goedkeuring')
@@ -155,8 +155,19 @@ def update_dodo(request):
     context = {"form": form, "dodos": dodos}
     return render(request, "base/update_dodo.html", context)
 
+# def feed(request):
+#     updates = Update.objects.all().order_by('-date')
+#     context = {"updates": updates}
+#     return render(request, 'base/feed.html', context)
 def feed(request):
     updates = Update.objects.all().order_by('-date')
-    context = {"updates": updates}
+    new_dodos = Dodo.objects.filter(alive=True).order_by('-date_of_birth')
+
+    context = {"updates": updates, "new_dodos": new_dodos}
     return render(request, 'base/feed.html', context)
 
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    user_updates = Update.objects.filter(user=user).order_by('-date')
+    context = {"user": user, "user_updates": user_updates}
+    return render(request, 'base/user_profile.html', context)

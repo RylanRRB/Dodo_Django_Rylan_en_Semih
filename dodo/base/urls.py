@@ -16,4 +16,5 @@ urlpatterns = [
     path("dodo_goedkeuring/", views.dodo_goedkeuring, name="dodo_goedkeuring"),
     path("feed/", views.feed, name="feed"),
     path("change_password/", views.change_password, name="change_password"),
+    path("user_profile/<str:username>/", views.user_profile, name="user_profile"),
 ]

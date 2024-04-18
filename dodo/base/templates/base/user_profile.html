@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <h1>{{ user.username }}'s Profile</h1>
+    <div class="user-info">
+        <p>Grade: {{ user.profile.grade }}</p>
+        <p>City: {{ user.profile.city }}</p>
+        <p>Date of Birth: {{ user.profile.date_of_birth }}</p>
+    </div>
+    <h2>Updates:</h2>
+    <div class="user-updates">
+        {% for update in user_updates %}
+            <div class="update-card">
+                <div class="update-header">
+                    <span class="update-user">{{ update.user }}</span>
+                    <span class="update-date">{{ update.date }}</span>
+                </div>
+                <div class="update-body">
+                    <p>{{ update.description }}</p>
+                    {% if update.dodo %}
+                        <p><strong>Dodo Name:</strong> {{ update.dodo.dodo }}</p>
+                        <p><strong>Alive Status:</strong> {% if update.dodo.alive %} Alive {% else %} Dead {% endif %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No updates available</p>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -215,21 +215,41 @@ a:hover {
     /* = 10px */
 }
 
-/* feed page stories */
+/* feed page diunge */
+
+
 .feed-container {
     display: grid;
     gap: 1.25rem;
     /* = 20px */
 }
 
+.feed-container-left {
+    grid-column: 1;
+}
+
+.feed-container-right {
+    grid-column: 2;
+}
+
 .update-card {
-    background-color: #f9f9f9;
+    background-color: #f9bbf01d;
     border-radius: 0.625rem;
     /* = 10px */
     padding: 1.25rem;
     /* = 20px */
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
+
+.added-dodos-card{
+    background-color: #ecd6a420;
+    border-radius: 0.625rem;
+    /* = 10px */
+    padding: 1.25rem;
+    /* = 20px */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
 
 .update-header {
     display: flex;
@@ -242,6 +262,7 @@ a:hover {
 .update-user {
     font-weight: bold;
 }
+
 
 .update-date {
     color: #777;
@@ -351,3 +372,4 @@ input[type="checkbox"] {
     margin-top: 0.625rem;
     /* = 10px */
 }
+
