@@ -11,8 +11,10 @@ from datetime import datetime
 
 # Create your views here.
 
+
 def startpagina(request):
     return render(request, "base/startpagina.html")
+
 
 def register(request):
     if request.method == "POST":
@@ -23,26 +25,31 @@ def register(request):
             return redirect('start_pagina')
     else:
         form = UserCreationForm()
-    
+
     context = {"form": form}
     return render(request, "registration/register.html", context)
+
 
 def logoutview(request):
     logout(request)
     return redirect('start_pagina')
 
+
 def say_firstname(request):
     context = {"first_name": "Rylan en Semih"}
     return render(request, "base/startpagina.html", context)
+
 
 def say_lastname(request):
     context = {"last_name": "Baboelal en Sener"}
     return render(request, "base/pagina_twee.html", context)
 
+
 def pagina_twee(request):
     approved_dead_dodos = Dodo.objects.filter(alive=False, dead_approved=True)
     context = {"approved_dead_dodos": approved_dead_dodos}
     return render(request, "base/pagina_twee.html", context)
+
 
 @login_required
 def user_info(request):
@@ -56,9 +63,10 @@ def user_info(request):
         form = UserForm()
 
     password_form = PasswordChangeForm(request.user)
-    
+
     context = {"form": form, "password_form": password_form}
     return render(request, "base/user_info.html", context)
+
 
 @login_required
 def change_password(request):
@@ -67,7 +75,8 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Import this function
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(
+                request, 'Your password was successfully updated!')
             return redirect('user_info')
         else:
             messages.error(request, 'Please correct the error below.')
@@ -75,10 +84,12 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'base/change_password.html', {'form': form})
 
+
 def user_list(request):
     users = Profile.objects.all()
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
+
 
 @staff_member_required
 def add_dodo(request):
@@ -91,19 +102,20 @@ def add_dodo(request):
             messages.success(request, "Dodo added successfully")
             return redirect("add_dodo")
     else:
-        staff_users = User.objects.filter(is_superuser=True) | User.objects.filter(is_staff=True)
+        staff_users = User.objects.filter(
+            is_superuser=True) | User.objects.filter(is_staff=True)
         form = DodoForm()
-        form.fields['user'].choices = [(user.id, user.username) for user in staff_users]
-    
+        form.fields['user'].choices = [
+            (user.id, user.username) for user in staff_users]
+
     context = {"form": form}
     return render(request, "base/add_dodo.html", context)
 
 
-
-
 @staff_member_required
 def dodo_goedkeuring(request):
-    dodos_pending_approval = Dodo.objects.filter(alive=False, dead_approved=False)
+    dodos_pending_approval = Dodo.objects.filter(
+        alive=False, dead_approved=False)
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo_id")
@@ -125,9 +137,10 @@ def dodo_goedkeuring(request):
     context = {"dodos_pending_approval": dodos_pending_approval}
     return render(request, "base/dodo_goedkeuring.html", context)
 
+
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(user=request.user, alive=True)#eventueel admin key erin
+    dodos = Dodo.objects.filter(alive=True)  # eventueel admin key erin
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
@@ -170,6 +183,8 @@ def update_dodo(request):
 #     updates = Update.objects.all().order_by('-date')
 #     context = {"updates": updates}
 #     return render(request, 'base/feed.html', context)
+
+
 def feed(request):
     updates = Update.objects.all().order_by('-date')
     new_dodos = Dodo.objects.filter(alive=True).order_by('-date_of_birth')
@@ -177,12 +192,16 @@ def feed(request):
     context = {"updates": updates, "new_dodos": new_dodos}
     return render(request, 'base/feed.html', context)
 
+
 def user_profile(request, username):
     user = User.objects.get(username=username)
     user_updates = Update.objects.filter(user=user).order_by('-date')
-    new_dodos = Dodo.objects.filter(user=user, alive=True).order_by('-date_of_birth')
-    context = {"user": user, "user_updates": user_updates, "new_dodos": new_dodos}
+    new_dodos = Dodo.objects.filter(
+        user=user, alive=True).order_by('-date_of_birth')
+    context = {"user": user, "user_updates": user_updates,
+               "new_dodos": new_dodos}
     return render(request, 'base/user_profile.html', context)
+
 
 @login_required
 def delete_dodo(request, dodo_id):
