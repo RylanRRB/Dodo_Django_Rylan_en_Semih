@@ -179,7 +179,7 @@ def update_dodo(request):
             form = DodoForm()
 
     context = {"form": form, "dodos": dodos}
-    return render(request, "base/update_dodo.html", context)
+    return render(request, "base/update_dodo.html", context) 
 
 
 def feed(request):
