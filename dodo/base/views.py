@@ -159,7 +159,7 @@ def update_dodo(request):
                 dodo=dodo_instance,
                 user=request.user,
                 date=datetime.now(),
-                description=f"Dodo updated by {updated_by}"
+                description=f"Dodo: {original_name} updated by {updated_by}"
             )
 
             messages.success(request, "Dodo updated successfully")
