@@ -32,10 +32,10 @@
         <a href="/user_list" class="nav-item">Users</a>
         <a href="/add_dodo" class="nav-item">Add Dodo</a>
         {% if user.is_authenticated %}
-            <span>{{ user.username }}</span>
             <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
             {% if user.is_staff %}
                 <a href="{% url 'dodo_goedkeuring' %}" class="nav-item">Dodo Goedkeuring</a>
+                <span>👤{{ user.username }}</span>
             {% endif %}
         {% else %}
             <a href="/login" class="nav-item">Login</a>
