@@ -4,10 +4,11 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from .forms import UserForm, DodoForm
+from .forms import UserForm, DodoForm, UpdateForm
 from django.contrib import messages
 from .models import *
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -216,3 +217,30 @@ def user_updates(request):
     new_dodos = Dodo.objects.filter(user=current_user, alive=True).order_by('-date_of_birth')
     context = {"user_updates": user_updates, "new_dodos": new_dodos}
     return render(request, 'base/user_updates.html', context)
+
+
+@login_required
+def update_update(request, description):
+    # Haal de update op op basis van de beschrijving (description)
+    update_instance = get_object_or_404(Update, description=description, user=request.user)
+
+    if request.method == "POST":
+        form = UpdateForm(request.POST, instance=update_instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Update updated successfully")
+            return redirect("user_updates")
+    else:
+        form = UpdateForm(instance=update_instance)
+    
+    return render(request, "base/update_update.html", {"form": form})
+
+
+@login_required
+def delete_update(request, update_id):
+    update_instance = Update.objects.get(pk=update_id)
+    if request.method == 'POST':
+        update_instance.delete()
+        messages.success(request, "Update deleted successfully")
+        return redirect('user_updates')
+    return render(request, 'base/delete_update.html', {'update': update_instance})

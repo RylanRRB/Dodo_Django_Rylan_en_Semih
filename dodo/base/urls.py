@@ -19,5 +19,6 @@ urlpatterns = [
     path("user_profile/<str:username>/", views.user_profile, name="user_profile"),
     path('delete_dodo/<int:dodo_id>/', views.delete_dodo, name='delete_dodo'),
     path("user_updates/", views.user_updates, name="user_updates"),
-
+    path("update_update/<str:description>/", views.update_update, name="update_update"),
+    path("delete_update/<int:update_id>/", views.delete_update, name="delete_update")
 ]

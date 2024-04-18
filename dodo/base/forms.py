@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, Dodo
+from .models import Profile, Dodo, Update
 
 class NameForm(forms.Form):
     your_name = forms.CharField(label='Your name', max_length=100)
@@ -19,3 +19,8 @@ class DodoForm(forms.ModelForm):
         widgets = {
             "date_of_birth": forms.DateInput(attrs={"type": "date"})
         }
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Update
+        fields = ('description',)

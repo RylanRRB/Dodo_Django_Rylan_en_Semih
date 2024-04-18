@@ -6,22 +6,28 @@
         <div class="feed-container-left">
             <h2>Updates</h2>
             {% for update in user_updates %}
-                <div class="update-card">
-                    <div class="update-header">
-                        <a href="{% url 'user_profile' update.user.username %}" class="update-user">{{ update.user }}</a>
-                        <span class="update-date">{{ update.date }}</span>
-                    </div>
-                    <div class="update-body">
-                        <p>{{ update.description }}</p>
-                        {% if update.dodo %}
-                            <p><strong>Dodo Name:</strong> {{ update.dodo.dodo }}</p>
-                            <p><strong>Alive Status:</strong> {% if update.dodo.alive %} Alive {% else %} Dead {% endif %}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            {% empty %}
-                <p>No updates available</p>
-            {% endfor %}
+    <div class="update-card">
+        <div class="update-header">
+            <a href="{% url 'user_profile' update.user.username %}" class="update-user">{{ update.user }}</a>
+            <span class="update-date">{{ update.date }}</span>
+        </div>
+        <div class="update-body">
+            <p>{{ update.description }}</p>
+            {% if update.dodo %}
+                <p><strong>Dodo Name:</strong> {{ update.dodo.dodo }}</p>
+                <p><strong>Description</strong> {{ update.dodo.description }}</p>
+                <p><strong>Alive Status:</strong> {% if update.dodo.alive %} Alive {% else %} Dead {% endif %}</p>
+            {% endif %}
+            <div class="update-actions">
+                <form method="post" action="{% url 'delete_update' update.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>            
+    </div>
+{% empty %}
+    <p>No updates available</p>
+{% endfor %}
         </div>
 
         <div class="feed-container-right">
