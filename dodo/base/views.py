@@ -169,5 +169,6 @@ def feed(request):
 def user_profile(request, username):
     user = User.objects.get(username=username)
     user_updates = Update.objects.filter(user=user).order_by('-date')
-    context = {"user": user, "user_updates": user_updates}
+    new_dodos = Dodo.objects.filter(user=user, alive=True).order_by('-date_of_birth')
+    context = {"user": user, "user_updates": user_updates, "new_dodos": new_dodos}
     return render(request, 'base/user_profile.html', context)
