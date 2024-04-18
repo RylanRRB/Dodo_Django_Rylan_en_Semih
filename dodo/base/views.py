@@ -221,17 +221,23 @@ def user_updates(request):
 @login_required
 def update_update(request, update_id):
     update_instance = get_object_or_404(Update, id=update_id, user=request.user)
+    original_name = update_instance.dodo.dodo
 
     if request.method == "POST":
         form = UpdateForm(request.POST, instance=update_instance)
         if form.is_valid():
             form.save()
+            updated_by = request.user.username
+            updated_description = f"Dodo: {original_name} updated by {updated_by}\n{form.cleaned_data['description']}"
+            update_instance.description = updated_description
+            update_instance.save()
             messages.success(request, "Update updated successfully")
             return redirect("user_updates")
     else:
         form = UpdateForm(instance=update_instance)
     
     return render(request, "base/update_update.html", {"form": form})
+
 
 
 
