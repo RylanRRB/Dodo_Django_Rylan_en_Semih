@@ -218,11 +218,9 @@ def user_updates(request):
     context = {"user_updates": user_updates, "new_dodos": new_dodos}
     return render(request, 'base/user_updates.html', context)
 
-
 @login_required
-def update_update(request, description):
-    # Haal de update op op basis van de beschrijving (description)
-    update_instance = get_object_or_404(Update, description=description, user=request.user)
+def update_update(request, update_id):
+    update_instance = get_object_or_404(Update, id=update_id, user=request.user)
 
     if request.method == "POST":
         form = UpdateForm(request.POST, instance=update_instance)
@@ -234,6 +232,7 @@ def update_update(request, description):
         form = UpdateForm(instance=update_instance)
     
     return render(request, "base/update_update.html", {"form": form})
+
 
 
 @login_required
