@@ -38,11 +38,16 @@
                     {{ dodo.dodo }} - Alive: {{ dodo.alive }} - Dead Approved: {{ dodo.dead_approved }}<br>
                     Description: {{ dodo.description }}<br>
                     Date of Birth: {{ dodo.date_of_birth }}
+                    <form method="POST" action="{% url 'delete_dodo' dodo.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </li>
             {% endfor %}
         </ul>
     </div>
 {% endblock content %}
+
 {% comment %} {% extends "base/base.html" %}
 
 {% block content %}

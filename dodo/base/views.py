@@ -128,9 +128,15 @@ def update_dodo(request):
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
         dodo_instance = Dodo.objects.get(pk=dodo_id)
+        original_name = dodo_instance.dodo
+
         form = DodoForm(request.POST, instance=dodo_instance)
         if form.is_valid():
-            form.save()
+            dodo = form.save(commit=False)
+            if dodo.dodo != original_name:
+                dodo.dodo = original_name
+            dodo.save()
+
             updated_by = request.user.username
             update_entry = Update.objects.create(
                 dodo=dodo_instance,
@@ -148,6 +154,7 @@ def update_dodo(request):
         dodo_id = request.GET.get("dodo")
         if dodo_id:
             dodo_instance = Dodo.objects.get(pk=dodo_id)
+            original_name = dodo_instance.dodo
             form = DodoForm(instance=dodo_instance)
         else:
             form = DodoForm()
@@ -172,3 +179,12 @@ def user_profile(request, username):
     new_dodos = Dodo.objects.filter(user=user, alive=True).order_by('-date_of_birth')
     context = {"user": user, "user_updates": user_updates, "new_dodos": new_dodos}
     return render(request, 'base/user_profile.html', context)
+
+@login_required
+def delete_dodo(request, dodo_id):
+    dodo = Dodo.objects.filter(pk=dodo_id).first()
+    if request.method == 'POST':
+        dodo.delete()
+        return redirect('feed')
+
+    return render(request, 'delete_dodo.html', {'dodo': dodo})

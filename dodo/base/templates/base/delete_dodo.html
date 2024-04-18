@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Dodo</title>
+</head>
+<body>
+    <h1>Update Dodo</h1>
+
+    <form action="{% url 'update_dodo' dodo.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Update Dodo</button>
+    </form>
+
+    <form action="{% url 'delete_dodo' dodo.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="dodo_id" value="{{ dodo.id }}">
+        <button type="submit">Delete Dodo</button>
+    </form>
+</body>
+</html>
+{% endblock content %}
