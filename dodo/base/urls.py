@@ -18,4 +18,5 @@ urlpatterns = [
     path("change_password/", views.change_password, name="change_password"),
     path("user_profile/<str:username>/", views.user_profile, name="user_profile"),
     path('delete_dodo/<int:dodo_id>/', views.delete_dodo, name='delete_dodo'),
+    path("dodo_detail/<int:dodo_id>/", views.dodo_detail, name="dodo_detail")
 ]

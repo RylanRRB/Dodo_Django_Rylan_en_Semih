@@ -20,9 +20,10 @@ willen een website waarop ze updates kunnen bijhouden over de vogels.
 
 Een gebruiker (wetenschapper) kan zich registreren en inloggen. Op zijn profiel wordt zijn 
 woonplaats, geboortedatum en hoogst behaalde diploma bijgehouden. De gebruiker kan deze 
-dingen updaten via de website.  
+dingen updaten via de website.
 Een gebruiker kan een nieuwe ‘update’ (welke dodo, wanneer en een omschrijving) toevoegen. 
-Updates kunnen alleen gedaan worden voor levende dodo’s. 
+Updates kunnen alleen gedaan worden voor levende dodo’s.
+ 
 Een gebruiker kan melden dat een dodo is overleden. Een admin moet dit goedkeuren voordat het 
 verder op de website wordt verwerkt.  
 Een gebruiker kan een ‘newsfeed’ pagina openen, hierop zijn alle updates van alle dodo’s zichtbaar, 
