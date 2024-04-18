@@ -140,7 +140,7 @@ def dodo_goedkeuring(request):
 
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(alive=True)  # eventueel admin key erin
+    dodos = Dodo.objects.filter(alive=True)
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
@@ -155,11 +155,12 @@ def update_dodo(request):
             dodo.save()
 
             updated_by = request.user.username
+            updated_description = f"Dodo: {original_name} updated by {updated_by}"
             update_entry = Update.objects.create(
                 dodo=dodo_instance,
                 user=request.user,
                 date=datetime.now(),
-                description=f"Dodo: {original_name} updated by {updated_by}"
+                description=updated_description
             )
 
             messages.success(request, "Dodo updated successfully")
@@ -172,17 +173,13 @@ def update_dodo(request):
         if dodo_id:
             dodo_instance = Dodo.objects.get(pk=dodo_id)
             original_name = dodo_instance.dodo
-            form = DodoForm(instance=dodo_instance)
+            form = DodoForm(instance=dodo_instance,
+                            initial={'dodo': original_name})
         else:
             form = DodoForm()
 
     context = {"form": form, "dodos": dodos}
     return render(request, "base/update_dodo.html", context)
-
-# def feed(request):
-#     updates = Update.objects.all().order_by('-date')
-#     context = {"updates": updates}
-#     return render(request, 'base/feed.html', context)
 
 
 def feed(request):
