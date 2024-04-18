@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .forms import UserForm, DodoForm
 from django.contrib import messages
 from .models import *
 from datetime import datetime
+
 # Create your views here.
 
 def startpagina(request):
@@ -79,7 +80,7 @@ def user_list(request):
     context = {"users": users}
     return render(request, 'base/user_list.html', context)
 
-@login_required
+@staff_member_required
 def add_dodo(request):
     if request.method == "POST":
         form = DodoForm(request.POST)
@@ -90,10 +91,13 @@ def add_dodo(request):
             messages.success(request, "Dodo added successfully")
             return redirect("add_dodo")
     else:
+        staff_users = User.objects.filter(is_superuser=True) | User.objects.filter(is_staff=True)
         form = DodoForm()
+        form.fields['user'].choices = [(user.id, user.username) for user in staff_users]
     
     context = {"form": form}
     return render(request, "base/add_dodo.html", context)
+
 
 
 

@@ -30,13 +30,13 @@
         <a href="/user_info" class="nav-item">Edit Profile</a>
         <a href="/update_dodo" class="nav-item">Update Dodo</a>
         <a href="/user_list" class="nav-item">Users</a>
-        <a href="/add_dodo" class="nav-item">Add Dodo</a>
         {% if user.is_authenticated %}
-            <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
             {% if user.is_staff %}
+                <a href="/add_dodo" class="nav-item">Add Dodo</a>
                 <a href="{% url 'dodo_goedkeuring' %}" class="nav-item">Dodo Goedkeuring</a>
                 <span>👤{{ user.username }}</span>
             {% endif %}
+            <a href="{% url 'logoutview' %}" class="nav-item">Logout</a>
         {% else %}
             <a href="/login" class="nav-item">Login</a>
             <a href="/register" class="nav-item">Register</a>
