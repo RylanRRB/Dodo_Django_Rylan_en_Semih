@@ -208,19 +208,3 @@ def delete_dodo(request, dodo_id):
         return redirect('feed')
 
     return render(request, 'delete_dodo.html', {'dodo': dodo})
-
-def dodo_detail(request, dodo_id):
-    dodo = Dodo.objects.get(pk=dodo_id)
-    updates = dodo.updates.all().order_by('-date')
-    dodo_age = dodo_age(dodo.date_of_birth)
-    context = {
-        "dodo": dodo,
-        "updates": updates,
-        "dodo_age": dodo_age,
-    }
-    return render(request, "base/dodo_detail.html", context)
-
-def dodo_age(date_of_birth):
-    today = datetime.date.today()
-    age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
-    return age
