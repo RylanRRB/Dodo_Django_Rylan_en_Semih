@@ -123,7 +123,7 @@ def dodo_goedkeuring(request):
 
 @login_required
 def update_dodo(request):
-    dodos = Dodo.objects.filter(user=request.user, alive=True)
+    dodos = Dodo.objects.filter(user=request.user, alive=True)#eventueel admin key erin
 
     if request.method == "POST":
         dodo_id = request.POST.get("dodo")
