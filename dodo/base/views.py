@@ -208,3 +208,11 @@ def delete_dodo(request, dodo_id):
         return redirect('feed')
 
     return render(request, 'delete_dodo.html', {'dodo': dodo})
+
+@login_required
+def user_updates(request):
+    current_user = request.user
+    user_updates = Update.objects.filter(user=current_user).order_by('-date')
+    new_dodos = Dodo.objects.filter(user=current_user, alive=True).order_by('-date_of_birth')
+    context = {"user_updates": user_updates, "new_dodos": new_dodos}
+    return render(request, 'base/user_updates.html', context)

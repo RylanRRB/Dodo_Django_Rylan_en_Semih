@@ -17,5 +17,7 @@ urlpatterns = [
     path("feed/", views.feed, name="feed"),
     path("change_password/", views.change_password, name="change_password"),
     path("user_profile/<str:username>/", views.user_profile, name="user_profile"),
-    path('delete_dodo/<int:dodo_id>/', views.delete_dodo, name='delete_dodo')
+    path('delete_dodo/<int:dodo_id>/', views.delete_dodo, name='delete_dodo'),
+    path("user_updates/", views.user_updates, name="user_updates"),
+
 ]

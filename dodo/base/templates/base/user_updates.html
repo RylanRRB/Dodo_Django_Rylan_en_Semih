@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <h1>User Updates</h1>
+    <div class="feed-container">
+        <div class="feed-container-left">
+            <h2>Updates</h2>
+            {% for update in user_updates %}
+                <div class="update-card">
+                    <div class="update-header">
+                        <a href="{% url 'user_profile' update.user.username %}" class="update-user">{{ update.user }}</a>
+                        <span class="update-date">{{ update.date }}</span>
+                    </div>
+                    <div class="update-body">
+                        <p>{{ update.description }}</p>
+                        {% if update.dodo %}
+                            <p><strong>Dodo Name:</strong> {{ update.dodo.dodo }}</p>
+                            <p><strong>Alive Status:</strong> {% if update.dodo.alive %} Alive {% else %} Dead {% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p>No updates available</p>
+            {% endfor %}
+        </div>
+
+        <div class="feed-container-right">
+            <h2>Newly Added Dodos</h2>
+            {% for dodo in new_dodos %}
+                <div class="added-dodos-card">
+                    <div class="update-header">
+                        <a href="{% url 'user_profile' dodo.user.username %}" class="update-user">{{ dodo.user }}</a>
+                        <span class="update-date">{{ dodo.date_of_birth }}</span>
+                    </div>
+                    <div class="update-body">
+                        <p><strong>Dodo Name:</strong> {{ dodo.dodo }}</p>
+                        <p><strong>Description:</strong> {{ dodo.description }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No newly added dodos</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
